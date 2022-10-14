@@ -17,8 +17,13 @@ const HALF_LIFE_PERIOD = 5730;
  * dateSample('WOOT!') => false
  *
  */
-function dateSample(/* sampleActivity */) {
-  
+function dateSample(sampleActivity) {
+  if (typeof sampleActivity != 'string') return false;
+  const logOfTwo = 0.693;
+  sampleActivity = Number(sampleActivity);
+  if (isNaN(sampleActivity) === true || arguments.length === 0 || sampleActivity === 0 || sampleActivity > MODERN_ACTIVITY || sampleActivity <= 0) return false;
+  const k = logOfTwo/HALF_LIFE_PERIOD;
+  return Math.ceil(Math.log(MODERN_ACTIVITY/sampleActivity) / k);
 }
 
 module.exports = {
